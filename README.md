@@ -19,6 +19,69 @@ The following Python libraries are required to run the Music Tagger:
 
 You can install these dependencies using pip:
 
-```sh
 pip install spotipy mutagen tkinter
 
+python
+
+
+## Setup
+
+To set up the Music Tagger, you need to obtain Spotify API credentials, which include a client ID and a client secret. Follow these steps to get your API credentials:
+
+1. Visit the [Spotify Developer Dashboard](https://developer.spotify.com/dashboard/applications) and log in with your Spotify account.
+2. Click "Create an App" and fill in the required information.
+3. Once your app is created, you'll see the client ID and client secret in the app's dashboard.
+
+Set your Spotify API credentials as environment variables on your local machine:
+
+- On Linux or macOS:
+
+export SPOTIFY_CLIENT_ID="your_client_id_here"
+export SPOTIFY_CLIENT_SECRET="your_client_secret_here"
+
+diff
+
+
+- On Windows (Command Prompt):
+
+set SPOTIFY_CLIENT_ID=your_client_id_here
+set SPOTIFY_CLIENT_SECRET=your_client_secret_here
+
+diff
+
+
+- On Windows (PowerShell):
+
+$env:SPOTIFY_CLIENT_ID = "your_client_id_here"
+$env:SPOTIFY_CLIENT_SECRET = "your_client_secret_here"
+
+markdown
+
+
+## Usage
+
+To run the Music Tagger, follow these steps:
+
+1. Open a terminal or command prompt and navigate to the directory containing the `music_tagger.py` script.
+2. Run the script:
+
+python music_tagger.py
+
+vbnet
+
+
+3. The Music Tagger GUI will open. Use the "Browse" button to select the folder containing your MP3 files.
+4. Enter your Spotify API client ID and client secret in the corresponding text fields.
+5. Select the audio features and genres you want to add to your MP3 files by checking the appropriate boxes.
+6. Click the "Start" button to begin processing your MP3 files. The progress bar and progress entry field will display the progress of the operation.
+7. Once the process is complete, the progress entry field will display "DONE".
+
+## Contributing
+
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+Please make sure to update tests as appropriate.
+
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
