@@ -109,7 +109,7 @@ def main(music_folder, client_id, client_secret, selected_attributes, progress_v
 
 
 def run_gui():
-    default_folder = "/Users/matthewreate/Music/music-library"
+    default_folder = "/Users/Music/music-library"
 
     def start_processing():
         music_folder = folder_entry.get()
