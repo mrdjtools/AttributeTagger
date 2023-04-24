@@ -32,6 +32,11 @@ To set up the Music Tagger, you need to obtain Spotify API credentials, which in
 2. Click "Create an App" and fill in the required information.
 3. Once your app is created, you'll see the client ID and client secret in the app's dashboard.
 
+# How to edit the code to change the "default folder"
+
+Open the main.py file in a code editor like VSC
+Find the line default_folder = "/Users/Music/music-library" and replace the path with the path to your desired default folder.
+Save the file.
 
 ## Usage
 
