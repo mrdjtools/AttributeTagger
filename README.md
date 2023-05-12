@@ -1,65 +1,57 @@
-# Attribute Tagger
+Attribute Tagger
 
-Attribute Tagger is a Python script that uses the Spotify API to fetch audio features and genres for MP3 files in your music library. The script then adds this information to the metadata of your MP3 files, allowing you to better categorize and understand your music collection.
+Attribute Tagger is an advanced Python application, brought to life with the guidance of OpenAI's ChatGPT 4. This tool serves as a bridge between your MP3 music library and the Spotify API, fetching insightful audio features and genres for your music tracks and integrating this data directly into each file's metadata. The result is a richer, more informative music collection that can be categorized and explored in new and exciting ways.
 
-## Features
+Key Features
 
-- Fetch audio features and genres from the Spotify API
-- Add audio features and genres to MP3 file metadata
-- Select which attributes to include in the metadata
-- Simple graphical user interface (GUI) for easy use
+Leverages the Spotify API to retrieve a wide range of audio features and genres for each MP3 track.
+Seamlessly integrates the retrieved data into the metadata of the corresponding MP3 files.
+Allows for customization of the attributes to be included in the metadata.
+Provides an intuitive Graphical User Interface (GUI) designed for ease of use.
+Prerequisites
 
-## Dependencies
+Attribute Tagger relies on the following Python libraries:
 
-The following Python libraries are required to run the Music Tagger:
+spotipy
+mutagen
+tkinter
+To install these dependencies, use pip:
 
-- spotipy
-- mutagen
-- tkinter
-
-## You can install these dependencies using pip:
-
+bash
+Copy code
 pip install spotipy mutagen tkinter
+Getting Started
 
-python
+Before using Attribute Tagger, you'll need to acquire Spotify API credentials. Here's a step-by-step guide to obtaining your client ID and client secret:
 
+Visit the Spotify Developer Dashboard and log in to your Spotify account.
+Click "Create an App" and complete the required fields.
+Once your app is set up, your client ID and client secret will be displayed on the app's dashboard.
+Configuring the Default Folder
 
-## Setup
+Attribute Tagger, by default, searches for MP3 files in a preset folder. To modify this:
 
-To set up the Music Tagger, you need to obtain Spotify API credentials, which include a client ID and a client secret. Follow these steps to get your API credentials:
+Open the music_tagger.py file in a code editor.
+Locate the line default_folder = "/Users/Music/music-library".
+Replace "/Users/Music/music-library" with the path to your preferred default folder.
+Save the changes.
+Usage
 
-1. Visit the [Spotify Developer Dashboard](https://developer.spotify.com/dashboard/applications) and log in with your Spotify account.
-2. Click "Create an App" and fill in the required information.
-3. Once your app is created, you'll see the client ID and client secret in the app's dashboard.
+Running Attribute Tagger is straightforward:
 
-# How to edit the code to change the "default folder"
+Open a terminal or command prompt and navigate to the directory where the music_tagger.py script is located.
+Run the script: python music_tagger.py
+The GUI will open. Use the "Browse" button to select your MP3 folder.
+Input your Spotify API client ID and client secret in the appropriate fields.
+Check the boxes next to the audio features and genres you wish to add to your MP3 files.
+Click "Start" to initiate the process. The progress bar and text field will keep you updated on the operation's progress.
+When completed, the text field will display "DONE".
+This application was developed with significant assistance from ChatGPT 4. This highly advanced language model by OpenAI provided valuable insights, suggestions, and guidance throughout the development process.
 
-Open the main.py file in a code editor like VSC
-Find the line default_folder = "/Users/Music/music-library" and replace the path with the path to your desired default folder.
-Save the file.
+Contributions
 
-## Usage
+We greatly appreciate contributions from the community. Please feel free to submit pull requests. If you have major changes in mind, we encourage you to open an issue first to discuss your proposed changes. Please ensure that you update or create tests as appropriate.
 
-To run the Music Tagger, follow these steps:
+License
 
-1. Open a terminal or command prompt and navigate to the directory containing the `music_tagger.py` script.
-2. Run the script:
-
-python music_tagger.py
-
-
-3. The Music Tagger GUI will open. Use the "Browse" button to select the folder containing your MP3 files.
-4. Enter your Spotify API client ID and client secret in the corresponding text fields.
-5. Select the audio features and genres you want to add to your MP3 files by checking the appropriate boxes.
-6. Click the "Start" button to begin processing your MP3 files. The progress bar and progress entry field will display the progress of the operation.
-7. Once the process is complete, the progress entry field will display "DONE".
-
-## Contributing
-
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
-
-Please make sure to update tests as appropriate.
-
-## License
-
-[MIT](https://choosealicense.com/licenses/mit/)
+Attribute Tagger is licensed under the MIT License.
