@@ -1,27 +1,30 @@
 import os
 import sys
-import tkinter as tk
+import time
+import threading
+import glob
 from tkinter import filedialog
+import tkinter as tk
+from tkinter import ttk
+
+import requests
+from requests.exceptions import RequestException
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 import mutagen
 from mutagen.easyid3 import EasyID3
 from mutagen.id3 import ID3, COMM
 from mutagen.mp3 import MP3
-import glob
-import time
-import threading
-from tkinter import ttk
-import requests
-from requests.exceptions import RequestException
 
 
 def authenticate_spotify(client_id, client_secret):
+    """Authenticate to Spotify API using the provided credentials."""
     client_credentials_manager = SpotifyClientCredentials(client_id=client_id, client_secret=client_secret)
     return spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
 
 def get_audio_features(spotify, track_name):
+    """Retrieve audio features for the given track using the Spotify API."""
     try:
         results = spotify.search(q=track_name, type='track', limit=1)
         if results['tracks']['items']:
@@ -47,14 +50,19 @@ def get_audio_features(spotify, track_name):
     return None
 
 
-
 def update_comment_with_features(audio, features, file_ext):
+    """Update the comment section of the audio file with the provided features."""
     if file_ext == '.mp3':
         audio_tags = ID3(audio.filename)
 
         # Update genre information
         if 'genres' in features:
-            audio_tags['TCON'] = mutagen.id3.TCON(encoding=3, text=features['genres'])
+            existing_genres = audio_tags.getall('TCON')
+            new_genres = features['genres']
+            if existing_genres:
+                existing_genres_text = existing_genres[0].text[0]
+                new_genres = f"{existing_genres_text}, {new_genres}"
+            audio_tags['TCON'] = mutagen.id3.TCON(encoding=3, text=new_genres)
 
         # Update comment section with other features
         comment = audio_tags.getall('COMM')
@@ -76,6 +84,7 @@ def update_comment_with_features(audio, features, file_ext):
 
 
 def main(music_folder, client_id, client_secret, selected_attributes, progress_var, progress_bar):
+    """Main function to process the music files in the given folder."""
     spotify = authenticate_spotify(client_id, client_secret)
 
     files_to_process = []
@@ -108,8 +117,9 @@ def main(music_folder, client_id, client_secret, selected_attributes, progress_v
 
 
 
+
 def run_gui():
-    default_folder = "/Users/Music/music-library"
+    default_folder = "/Users/matthewreate/Music/music-library"
 
     def start_processing():
         music_folder = folder_entry.get()
@@ -121,7 +131,7 @@ def run_gui():
         processing_thread.start()
 
     def browse_folder():
-        folder = filedialog.askdirectory(initialdir=default_folder)  # Add initialdir parameter here
+        folder = filedialog.askdirectory(initialdir=default_folder)
         folder_entry.delete(0, tk.END)
         folder_entry.insert(0, folder)
 
@@ -143,12 +153,12 @@ def run_gui():
 
     client_id_label = tk.Label(main_frame, text="Client ID:")
     client_id_label.pack(pady=5, anchor='w')
-    client_id_entry = tk.Entry(main_frame, width=50)
+    client_id_entry = tk.Entry(main_frame, width=50, show="*")
     client_id_entry.pack()
 
     client_secret_label = tk.Label(main_frame, text="Client Secret:")
     client_secret_label.pack(pady=5, anchor='w')
-    client_secret_entry = tk.Entry(main_frame, width=50)
+    client_secret_entry = tk.Entry(main_frame, width=50, show="*")
     client_secret_entry.pack()
 
     attributes_label = tk.Label(main_frame, text="Attributes:")
@@ -175,21 +185,22 @@ def run_gui():
     for index, (attr, var) in enumerate(attribute_vars.items()):
         chk = tk.Checkbutton(attributes_frame, text=attr.capitalize(), variable=var)
         chk.grid(row=index // 4, column=index % 4, padx=5, pady=5)
-
     start_button = tk.Button(main_frame, text="Start", command=start_processing)
     start_button.pack(pady=10)
 
-    progress_label = tk.Label(main_frame, text="Progress:")
-    progress_label.pack(pady=5, anchor='w')
     progress_var = tk.StringVar()
-    progress_var.set("Not started")
-    progress_entry = tk.Entry(main_frame, width=50, textvariable=progress_var, state='readonly')
-    progress_entry.pack()
+    progress_label = tk.Label(main_frame, textvariable=progress_var)
+    progress_label.pack(pady=5, anchor='w')
 
-    progress_bar = ttk.Progressbar(main_frame, mode='determinate')
-    progress_bar.pack(pady=5, fill=tk.X)
+    progress_bar = ttk.Progressbar(main_frame, length=400)
+    progress_bar.pack(pady=5)
 
     root.mainloop()
 
+
 if __name__ == "__main__":
     run_gui()
+
+
+   
+
